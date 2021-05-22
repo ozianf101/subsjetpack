@@ -1,10 +1,11 @@
 package com.jetpack.submissionsatu.fragment
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.jetpack.submissionsatu.data.DataKolektif
-import com.jetpack.submissionsatu.model.DataEntitas
+import com.jetpack.submissionsatu.model.DataEntitasMovie
+import com.jetpack.submissionsatu.repository.Repository
 
-class MoviesViewModel : ViewModel() {
+class MoviesViewModel(private val repository: Repository) : ViewModel() {
 
-    fun getMoviesData() : List<DataEntitas> = DataKolektif.getDataMovies()
+    fun getMoviesData() : LiveData<ArrayList<DataEntitasMovie?>?> =repository.getAllMovies()
 }

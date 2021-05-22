@@ -8,18 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import com.jetpack.submissionsatu.R
-import com.jetpack.submissionsatu.adapter.ContentAdapter
-import com.jetpack.submissionsatu.adapter.ContentCallback
+import com.jetpack.submissionsatu.adapter.ContentTvAdapter
+import com.jetpack.submissionsatu.adapter.ContentTvCallback
 import com.jetpack.submissionsatu.data.Helper
-import com.jetpack.submissionsatu.databinding.MoviesFragmentBinding
 import com.jetpack.submissionsatu.databinding.TvShowFragmentBinding
-import com.jetpack.submissionsatu.model.DataEntitas
+import com.jetpack.submissionsatu.model.DataEntitasTv
+import com.jetpack.submissionsatu.source.ViewModelFactory
 import com.jetpack.submissionsatu.ui.detail.DetailActivity
 
-class TvShowFragment : Fragment(),ContentCallback {
-
-    private lateinit var tvViewModel: TvShowViewModel
+class TvShowFragment : Fragment(), ContentTvCallback {
     private var binding : TvShowFragmentBinding? = null
 
 
@@ -33,20 +30,23 @@ class TvShowFragment : Fragment(),ContentCallback {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        tvViewModel = ViewModelProvider(this).get(TvShowViewModel::class.java)
-
-        val listTvShows =tvViewModel.getTvShows()
-        setRecycler(listTvShows)
+        val factory = ViewModelFactory.getInstance()
+        val viewModel by lazy {
+            ViewModelProvider(this,factory).get(TvShowViewModel::class.java)
+        }
+        viewModel.getTvShows().observe(viewLifecycleOwner,{ list ->
+            list?.let { setRecycler(it) }
+        })
     }
 
-    private fun setRecycler(data: List<DataEntitas>) {
+    private fun setRecycler(data: ArrayList<DataEntitasTv?>) {
         binding?.rvTvshow?.apply {
             layoutManager = GridLayoutManager(context, 2)
-            adapter = ContentAdapter(this@TvShowFragment)
+            adapter = ContentTvAdapter(this@TvShowFragment)
         }.also {
             it?.adapter.let { adapter ->
                 when (adapter) {
-                    is ContentAdapter -> {
+                    is ContentTvAdapter -> {
                         adapter.setData(data)
                     }
                 }
@@ -54,10 +54,10 @@ class TvShowFragment : Fragment(),ContentCallback {
         }
     }
 
-    override fun onItemClicked(data: DataEntitas) {
+    override fun onItemClicked(dataTv: DataEntitasTv) {
         startActivity(
             Intent(context, DetailActivity::class.java)
-                .putExtra(DetailActivity.EXTRA_DATA, data.id)
+                .putExtra(DetailActivity.EXTRA_DATA, dataTv.id)
                 .putExtra(DetailActivity.EXTRA_TYPE, Helper.TYPE_TVSHOW)
         )
     }

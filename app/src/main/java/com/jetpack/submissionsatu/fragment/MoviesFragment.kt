@@ -1,7 +1,6 @@
 package com.jetpack.submissionsatu.fragment
 
 import android.content.Intent
-import android.nfc.NfcAdapter.EXTRA_DATA
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,17 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import com.jetpack.submissionsatu.R
-import com.jetpack.submissionsatu.adapter.ContentAdapter
-import com.jetpack.submissionsatu.adapter.ContentCallback
+import com.jetpack.submissionsatu.adapter.ContentMovieAdapter
+import com.jetpack.submissionsatu.adapter.ContentMovieCallback
 import com.jetpack.submissionsatu.data.Helper.TYPE_MOVIE
 import com.jetpack.submissionsatu.databinding.MoviesFragmentBinding
-import com.jetpack.submissionsatu.model.DataEntitas
+import com.jetpack.submissionsatu.model.DataEntitasMovie
+import com.jetpack.submissionsatu.source.ViewModelFactory
 import com.jetpack.submissionsatu.ui.detail.DetailActivity
 
-class MoviesFragment : Fragment(), ContentCallback {
+class   MoviesFragment : Fragment(), ContentMovieCallback {
 
-    private lateinit var viewModel: MoviesViewModel
     private var binding : MoviesFragmentBinding? = null
 
     override fun onCreateView(
@@ -32,20 +30,25 @@ class MoviesFragment : Fragment(), ContentCallback {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MoviesViewModel::class.java)
 
-        val listMovie =viewModel.getMoviesData()
-        setRecycler(listMovie)
+        val factory = ViewModelFactory.getInstance()
+        val viewModel by lazy {
+            ViewModelProvider(this,factory).get(MoviesViewModel::class.java)
+        }
+        viewModel.getMoviesData().observe(viewLifecycleOwner,{ list ->
+            list?.let { setRecycler(it) }
+        })
+
     }
 
-    private fun setRecycler(data: List<DataEntitas>) {
+    private fun setRecycler(data: ArrayList<DataEntitasMovie?>) {
         binding?.rvMovie?.apply {
             layoutManager = GridLayoutManager(context, 2)
-            adapter = ContentAdapter(this@MoviesFragment)
+            adapter = ContentMovieAdapter(this@MoviesFragment)
         }.also {
             it?.adapter.let { adapter ->
                 when (adapter) {
-                    is ContentAdapter -> {
+                    is ContentMovieAdapter -> {
                         adapter.setData(data)
                     }
                 }
@@ -53,10 +56,10 @@ class MoviesFragment : Fragment(), ContentCallback {
         }
     }
 
-    override fun onItemClicked(data: DataEntitas) {
+    override fun onItemClicked(dataMovie: DataEntitasMovie) {
         startActivity(
             Intent(context, DetailActivity::class.java)
-                .putExtra(DetailActivity.EXTRA_DATA, data.id)
+                .putExtra(DetailActivity.EXTRA_DATA, dataMovie.id)
                 .putExtra(DetailActivity.EXTRA_TYPE, TYPE_MOVIE)
         )
     }

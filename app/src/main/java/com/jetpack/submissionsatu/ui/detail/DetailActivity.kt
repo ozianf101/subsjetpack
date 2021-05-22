@@ -2,18 +2,20 @@ package com.jetpack.submissionsatu.ui.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
-import com.jetpack.submissionsatu.R
 import com.jetpack.submissionsatu.data.Helper.TYPE_MOVIE
 import com.jetpack.submissionsatu.data.Helper.TYPE_TVSHOW
 import com.jetpack.submissionsatu.data.Helper.setGlideImage
 import com.jetpack.submissionsatu.databinding.ActivityDetailBinding
-import com.jetpack.submissionsatu.model.DataEntitas
+import com.jetpack.submissionsatu.model.DetailMovie
+import com.jetpack.submissionsatu.model.DetailTvShow
+import com.jetpack.submissionsatu.source.RemoteDataSource
+import com.jetpack.submissionsatu.source.ViewModelFactory
 
 class DetailActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityDetailBinding.inflate(layoutInflater)}
-    private lateinit var result: DataEntitas
 
     companion object {
         const val EXTRA_DATA = "extra_data"
@@ -24,30 +26,58 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailViewModel::class.java]
+        val factory = ViewModelFactory.getInstance()
+        val viewModel = ViewModelProvider(this,factory).get(DetailViewModel::class.java)
 
-        val idData = intent.getStringExtra(EXTRA_DATA)
+        val idData = intent.getIntExtra(EXTRA_DATA,0)
         val type = intent.getStringExtra(EXTRA_TYPE)
 
+        Log.e("pass ID", "id data "+idData.toString())
+
         if (type.equals(TYPE_MOVIE, ignoreCase = true)) {
-            idData?.let {
-                viewModel.setSelectedMovie(it)
+            idData.let {
+                viewModel.setSelectedMovie(idData)
+                viewModel.getMovie().observe(this,{ detail -> populateDataMovie(detail)
+                })
             }
-            result = viewModel.getMovie()
         } else if (type.equals(TYPE_TVSHOW, ignoreCase = true)) {
-            idData?.let {
-                viewModel.setSelectedTV(it)
+            viewModel.setSelectedTV(idData)
+            idData.let {
+                viewModel.getTV().observe(this,{
+                        detail -> populateDataTv(detail)
+                })
             }
-            result = viewModel.getTV()
+
         }
 
-        binding.tvTitle.text = result.title
-        binding.tvDesc.text = result.overview
-        binding.tvRealaseDate.text = result.released
-        binding.tvGenre.text = result.genre
-        binding.txtRating.text = result.rating.toString().trim()
-        setGlideImage(this@DetailActivity, result.imgPoster, binding.imgItemPhoto)
-        setGlideImage(this@DetailActivity, result.imgBackground, binding.imgItemPreview)
+
     }
 
+    fun populateDataMovie(movie:DetailMovie?){
+        binding.tvTitle.text = movie!!.title
+        binding.tvDesc.text = movie.overview
+        binding.tvRealaseDate.text = movie.released
+        binding.txtRating.text = movie.rating.toString().trim()
+        var genreTxt = ""
+        for (item in movie.genre!!){
+            genreTxt = item.name+", "+genreTxt
+        }
+        binding.tvGenre.text = genreTxt
+        setGlideImage(this@DetailActivity, movie.imgPoster, binding.imgItemPhoto)
+        setGlideImage(this@DetailActivity, movie.imgBackground, binding.imgItemPreview)
+    }
+
+    fun populateDataTv(tv:DetailTvShow?){
+        binding.tvTitle.text = tv!!.title
+        binding.tvDesc.text = tv.overview
+        binding.tvRealaseDate.text = tv.firstAir
+        binding.txtRating.text = tv.rating.toString().trim()
+        var genreTxt = ""
+        for (item in tv.genre!!){
+            genreTxt = item.name+", "+genreTxt
+        }
+        binding.tvGenre.text = genreTxt
+        setGlideImage(this@DetailActivity, tv.imgPoster, binding.imgItemPhoto)
+        setGlideImage(this@DetailActivity, tv.imgBackground, binding.imgItemPreview)
+    }
 }

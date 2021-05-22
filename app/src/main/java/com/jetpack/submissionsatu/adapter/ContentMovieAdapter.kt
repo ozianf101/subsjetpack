@@ -4,14 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.jetpack.submissionsatu.data.Helper.IMG_URL
 import com.jetpack.submissionsatu.databinding.ContentLayoutBinding
-import com.jetpack.submissionsatu.model.DataEntitas
+import com.jetpack.submissionsatu.model.DataEntitasMovie
 
-class ContentAdapter (private val callback: ContentCallback) : RecyclerView.Adapter<ContentAdapter.ListViewHolder>() {
+class ContentMovieAdapter (private val movieCallback: ContentMovieCallback) : RecyclerView.Adapter<ContentMovieAdapter.ListViewHolder>() {
 
-    private val listData = ArrayList<DataEntitas>()
+    private val listData = ArrayList<DataEntitasMovie?>()
 
-    fun setData(data: List<DataEntitas>?) {
+    fun setData(data: ArrayList<DataEntitasMovie?>) {
         if (data == null) return
         listData.clear()
         listData.addAll(data)
@@ -24,23 +25,23 @@ class ContentAdapter (private val callback: ContentCallback) : RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.bind(listData[position])
+        listData[position]?.let { holder.bind(it) }
     }
 
     override fun getItemCount(): Int = listData.size
 
     inner class ListViewHolder(private val binding : ContentLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: DataEntitas) {
+        fun bind(dataMovie: DataEntitasMovie) {
             with(binding) {
-                tvTitle.text = data.title
-                txtRate.text = data.rating.toString().trim()
+                tvTitle.text = dataMovie.title
+                txtRate.text = dataMovie.rating.toString().trim()
 
                 Glide.with(itemView.context)
-                    .load(data.imgPoster)
+                    .load(IMG_URL+dataMovie.imgPoster)
                     .into(imgItemPhoto)
 
                 itemCard.setOnClickListener {
-                    callback.onItemClicked(data)
+                    movieCallback.onItemClicked(dataMovie)
                 }
             }
         }

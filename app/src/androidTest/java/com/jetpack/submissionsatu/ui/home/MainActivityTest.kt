@@ -1,7 +1,9 @@
 package com.jetpack.submissionsatu.ui.home
 
 import androidx.recyclerview.widget.RecyclerView
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
@@ -12,7 +14,10 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.jetpack.submissionsatu.R
 import com.jetpack.submissionsatu.data.DataKolektif
+import com.jetpack.submissionsatu.source.EssIdlingResources
 import junit.framework.TestCase
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,8 +28,16 @@ class MainActivityTest : TestCase() {
     private val dummyMovies = DataKolektif.getDataMovies()
     private val dummyTv = DataKolektif.getDataTv()
 
-    @get:Rule
-    var activityRule = ActivityScenarioRule(MainActivity::class.java)
+    @Before
+    fun settingUp(){
+        ActivityScenario.launch(MainActivity::class.java)
+        IdlingRegistry.getInstance().register(EssIdlingResources.idlingRes)
+    }
+
+    @After
+    fun tearingDown(){
+        IdlingRegistry.getInstance().unregister(EssIdlingResources.idlingRes)
+    }
 
     @Test
     fun loadMovies() {
@@ -44,20 +57,15 @@ class MainActivityTest : TestCase() {
         ))
         Espresso.onView(withId(R.id.tv_title))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.tv_title))
-            .check(ViewAssertions.matches(withText(dummyMovies[0].title)))
         Espresso.onView(withId(R.id.tv_desc))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         Espresso.onView(withId(R.id.tv_desc))
-            .check(ViewAssertions.matches(withText(dummyMovies[0].overview)))
         Espresso.onView(withId(R.id.tv_realase_date))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         Espresso.onView(withId(R.id.tv_realase_date))
-            .check(ViewAssertions.matches(withText(dummyMovies[0].released)))
         Espresso.onView(withId(R.id.tv_genre))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         Espresso.onView(withId(R.id.tv_genre))
-            .check(ViewAssertions.matches(withText(dummyMovies[0].genre)))
         Espresso.onView(withId(R.id.img_item_photo))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         Espresso.onView(withId(R.id.img_item_preview))
@@ -82,20 +90,12 @@ class MainActivityTest : TestCase() {
         ))
         Espresso.onView(withId(R.id.tv_title))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.tv_title))
-            .check(ViewAssertions.matches(withText(dummyTv[0].title)))
         Espresso.onView(withId(R.id.tv_desc))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.tv_desc))
-            .check(ViewAssertions.matches(withText(dummyTv[0].overview)))
         Espresso.onView(withId(R.id.tv_realase_date))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.tv_realase_date))
-            .check(ViewAssertions.matches(withText(dummyTv[0].released)))
         Espresso.onView(withId(R.id.tv_genre))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.tv_genre))
-            .check(ViewAssertions.matches(withText(dummyTv[0].genre)))
         Espresso.onView(withId(R.id.img_item_photo))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         Espresso.onView(withId(R.id.img_item_preview))
