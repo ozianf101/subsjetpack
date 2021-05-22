@@ -17,7 +17,7 @@ import com.jetpack.submissionsatu.source.ViewModelFactory
 import com.jetpack.submissionsatu.ui.detail.DetailActivity
 
 class TvShowFragment : Fragment(), ContentTvCallback {
-    private var binding : TvShowFragmentBinding? = null
+    private var binding: TvShowFragmentBinding? = null
 
 
     override fun onCreateView(
@@ -32,9 +32,9 @@ class TvShowFragment : Fragment(), ContentTvCallback {
         super.onActivityCreated(savedInstanceState)
         val factory = ViewModelFactory.getInstance()
         val viewModel by lazy {
-            ViewModelProvider(this,factory).get(TvShowViewModel::class.java)
+            ViewModelProvider(this, factory).get(TvShowViewModel::class.java)
         }
-        viewModel.getTvShows().observe(viewLifecycleOwner,{ list ->
+        viewModel.getTvShows().observe(viewLifecycleOwner, { list ->
             list?.let { setRecycler(it) }
         })
     }

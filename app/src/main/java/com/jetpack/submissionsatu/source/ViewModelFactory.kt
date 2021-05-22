@@ -8,13 +8,15 @@ import com.jetpack.submissionsatu.fragment.TvShowViewModel
 import com.jetpack.submissionsatu.repository.Repository
 import com.jetpack.submissionsatu.ui.detail.DetailViewModel
 
-class ViewModelFactory(private val repository: Repository) : ViewModelProvider.NewInstanceFactory() {
-    companion object{
+@Suppress("UNCHECKED_CAST")
+class ViewModelFactory(private val repository: Repository) :
+    ViewModelProvider.NewInstanceFactory() {
+    companion object {
         @Volatile
         private var instance: ViewModelFactory? = null
 
-        fun getInstance() : ViewModelFactory =
-            instance ?: synchronized(this){
+        fun getInstance(): ViewModelFactory =
+            instance ?: synchronized(this) {
                 instance ?: ViewModelFactory(Injection.provideRepository()).apply {
                     instance = this
                 }
@@ -22,7 +24,7 @@ class ViewModelFactory(private val repository: Repository) : ViewModelProvider.N
     }
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        when{
+        when {
             modelClass.isAssignableFrom(MoviesViewModel::class.java) -> {
                 return MoviesViewModel(repository) as T
             }
@@ -32,7 +34,7 @@ class ViewModelFactory(private val repository: Repository) : ViewModelProvider.N
             modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
                 return DetailViewModel(repository) as T
             }
-            else -> throw Throwable("invalid "+modelClass.name)
+            else -> throw Throwable("invalid " + modelClass.name)
         }
     }
 }

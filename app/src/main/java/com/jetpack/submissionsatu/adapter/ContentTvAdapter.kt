@@ -8,12 +8,12 @@ import com.jetpack.submissionsatu.data.Helper.IMG_URL
 import com.jetpack.submissionsatu.databinding.ContentLayoutBinding
 import com.jetpack.submissionsatu.model.DataEntitasTv
 
-class ContentTvAdapter (private val tvCallback: ContentTvCallback) : RecyclerView.Adapter<ContentTvAdapter.ListViewHolder>() {
+class ContentTvAdapter(private val tvCallback: ContentTvCallback) :
+    RecyclerView.Adapter<ContentTvAdapter.ListViewHolder>() {
 
     private val listData = ArrayList<DataEntitasTv?>()
 
     fun setData(data: ArrayList<DataEntitasTv?>) {
-        if (data == null) return
         listData.clear()
         listData.addAll(data)
     }
@@ -30,14 +30,15 @@ class ContentTvAdapter (private val tvCallback: ContentTvCallback) : RecyclerVie
 
     override fun getItemCount(): Int = listData.size
 
-    inner class ListViewHolder(private val binding : ContentLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ListViewHolder(private val binding: ContentLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(dataTv: DataEntitasTv) {
             with(binding) {
                 tvTitle.text = dataTv.title
                 txtRate.text = dataTv.rating.toString().trim()
 
                 Glide.with(itemView.context)
-                    .load(IMG_URL+dataTv.imgPoster)
+                    .load(IMG_URL + dataTv.imgPoster)
                     .into(imgItemPhoto)
 
                 itemCard.setOnClickListener {

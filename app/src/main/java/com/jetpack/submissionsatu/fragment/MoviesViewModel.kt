@@ -7,5 +7,5 @@ import com.jetpack.submissionsatu.repository.Repository
 
 class MoviesViewModel(private val repository: Repository) : ViewModel() {
 
-    fun getMoviesData() : LiveData<ArrayList<DataEntitasMovie?>?> =repository.getAllMovies()
+    fun getMoviesData(): LiveData<ArrayList<DataEntitasMovie?>?> = repository.getAllMovies()
 }

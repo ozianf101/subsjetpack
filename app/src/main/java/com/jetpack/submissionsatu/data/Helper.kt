@@ -13,6 +13,6 @@ object Helper {
 
     fun setGlideImage(context: Context, imagePath: String?, imageView: ImageView) {
         Glide.with(context).clear(imageView)
-        Glide.with(context).load(IMG_URL+imagePath).into(imageView)
+        Glide.with(context).load(IMG_URL + imagePath).into(imageView)
     }
 }

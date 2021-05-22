@@ -16,9 +16,9 @@ import com.jetpack.submissionsatu.model.DataEntitasMovie
 import com.jetpack.submissionsatu.source.ViewModelFactory
 import com.jetpack.submissionsatu.ui.detail.DetailActivity
 
-class   MoviesFragment : Fragment(), ContentMovieCallback {
+class MoviesFragment : Fragment(), ContentMovieCallback {
 
-    private var binding : MoviesFragmentBinding? = null
+    private var binding: MoviesFragmentBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,9 +33,9 @@ class   MoviesFragment : Fragment(), ContentMovieCallback {
 
         val factory = ViewModelFactory.getInstance()
         val viewModel by lazy {
-            ViewModelProvider(this,factory).get(MoviesViewModel::class.java)
+            ViewModelProvider(this, factory).get(MoviesViewModel::class.java)
         }
-        viewModel.getMoviesData().observe(viewLifecycleOwner,{ list ->
+        viewModel.getMoviesData().observe(viewLifecycleOwner, { list ->
             list?.let { setRecycler(it) }
         })
 

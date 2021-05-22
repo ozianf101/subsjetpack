@@ -13,7 +13,7 @@ import com.jetpack.submissionsatu.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var activityMainBinding:ActivityMainBinding
+    private lateinit var activityMainBinding: ActivityMainBinding
 
     private val tabTitle = intArrayOf(
         R.string.movies,
@@ -28,10 +28,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(activityMainBinding.root)
 
         val imageList = ArrayList<SlideModel>()
-        imageList.add(SlideModel(R.drawable.latar_gotham,ScaleTypes.CENTER_CROP))
-        imageList.add(SlideModel(R.drawable.latar_cold_persuit,ScaleTypes.CENTER_CROP))
-        imageList.add(SlideModel(R.drawable.latar_t34,ScaleTypes.CENTER_CROP))
-        imageList.add(SlideModel(R.drawable.latar_a_star,ScaleTypes.CENTER_CROP))
+        imageList.add(SlideModel(R.drawable.latar_gotham, ScaleTypes.CENTER_CROP))
+        imageList.add(SlideModel(R.drawable.latar_cold_persuit, ScaleTypes.CENTER_CROP))
+        imageList.add(SlideModel(R.drawable.latar_t34, ScaleTypes.CENTER_CROP))
+        imageList.add(SlideModel(R.drawable.latar_a_star, ScaleTypes.CENTER_CROP))
 
         val imageSlider = activityMainBinding.carouselView
         imageSlider.setImageList(imageList)

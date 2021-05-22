@@ -16,7 +16,7 @@ class ViewPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activ
 
     override fun getItemCount(): Int = listFragment.size
 
-    override fun createFragment(position: Int): Fragment = listFragment[position] as Fragment
+    override fun createFragment(position: Int): Fragment = listFragment[position]
 
 
 }

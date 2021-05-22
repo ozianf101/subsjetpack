@@ -8,8 +8,8 @@ import com.jetpack.submissionsatu.model.DetailTvShow
 
 interface DataSource {
 
-    fun getAllMovies() : LiveData<ArrayList<DataEntitasMovie?>?>
-    fun getAllTV() : LiveData<ArrayList<DataEntitasTv?>?>
-    fun getOneMovie(id: Int?) : LiveData<DetailMovie?>
-    fun getOneTV(id: Int?) : LiveData<DetailTvShow?>
+    fun getAllMovies(): LiveData<ArrayList<DataEntitasMovie?>?>
+    fun getAllTV(): LiveData<ArrayList<DataEntitasTv?>?>
+    fun getOneMovie(id: Int?): LiveData<DetailMovie?>
+    fun getOneTV(id: Int?): LiveData<DetailTvShow?>
 }

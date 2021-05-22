@@ -18,7 +18,7 @@ import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class TvShowViewModelTest(){
+class TvShowViewModelTest() {
     private lateinit var viewModel: TvShowViewModel
 
     @get:Rule
@@ -31,7 +31,7 @@ class TvShowViewModelTest(){
     private lateinit var observer: Observer<ArrayList<DataEntitasTv?>?>
 
     @Before
-    fun setUp(){
+    fun setUp() {
         viewModel = TvShowViewModel(tvRepository)
     }
 

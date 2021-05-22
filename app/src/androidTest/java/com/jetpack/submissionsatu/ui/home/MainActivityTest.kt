@@ -29,13 +29,13 @@ class MainActivityTest : TestCase() {
     private val dummyTv = DataKolektif.getDataTv()
 
     @Before
-    fun settingUp(){
+    fun settingUp() {
         ActivityScenario.launch(MainActivity::class.java)
         IdlingRegistry.getInstance().register(EssIdlingResources.idlingRes)
     }
 
     @After
-    fun tearingDown(){
+    fun tearingDown() {
         IdlingRegistry.getInstance().unregister(EssIdlingResources.idlingRes)
     }
 
@@ -52,9 +52,12 @@ class MainActivityTest : TestCase() {
     fun loadDetailMovie() {
         Espresso.onView(withId(R.id.rv_movie))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.rv_movie)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0,
-            ViewActions.click()
-        ))
+        Espresso.onView(withId(R.id.rv_movie)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0,
+                ViewActions.click()
+            )
+        )
         Espresso.onView(withId(R.id.tv_title))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         Espresso.onView(withId(R.id.tv_desc))
@@ -77,7 +80,8 @@ class MainActivityTest : TestCase() {
         Espresso.onView(withText("Tv Shows")).perform(ViewActions.click())
         Espresso.onView(withId(R.id.rv_tvshow))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.rv_tvshow)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyTv.size))
+        Espresso.onView(withId(R.id.rv_tvshow))
+            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyTv.size))
     }
 
     @Test
@@ -85,9 +89,12 @@ class MainActivityTest : TestCase() {
         Espresso.onView(withText("Tv Shows")).perform(ViewActions.click())
         Espresso.onView(withId(R.id.rv_tvshow))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.rv_tvshow)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0,
-            ViewActions.click()
-        ))
+        Espresso.onView(withId(R.id.rv_tvshow)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0,
+                ViewActions.click()
+            )
+        )
         Espresso.onView(withId(R.id.tv_title))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         Espresso.onView(withId(R.id.tv_desc))

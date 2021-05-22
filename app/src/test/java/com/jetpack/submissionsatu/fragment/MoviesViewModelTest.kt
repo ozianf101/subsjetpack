@@ -30,7 +30,7 @@ class MoviesViewModelTest {
     private lateinit var observer: Observer<ArrayList<DataEntitasMovie?>?>
 
     @Before
-    fun setUp(){
+    fun setUp() {
         viewModel = MoviesViewModel(movieRepository)
     }
 

@@ -19,13 +19,13 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val animation =AnimationUtils.loadAnimation(this,R.anim.stb)
+        val animation = AnimationUtils.loadAnimation(this, R.anim.stb)
 
         binding.appLogo.startAnimation(animation)
 
         Handler(mainLooper).postDelayed({
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finishAffinity()
-        },3000)
+        }, 3000)
     }
 }

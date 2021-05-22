@@ -6,9 +6,9 @@ import com.jetpack.submissionsatu.model.*
 import com.jetpack.submissionsatu.source.DataSource
 import com.jetpack.submissionsatu.source.RemoteDataSource
 
-class Repository(private val remoteDataSource: RemoteDataSource): DataSource {
+class Repository(private val remoteDataSource: RemoteDataSource) : DataSource {
 
-    companion object{
+    companion object {
         @Volatile
         private var instance: Repository? = null
 
@@ -20,11 +20,11 @@ class Repository(private val remoteDataSource: RemoteDataSource): DataSource {
 
     override fun getAllMovies(): LiveData<ArrayList<DataEntitasMovie?>?> {
         val movieResults = MutableLiveData<ArrayList<DataEntitasMovie?>?>()
-        remoteDataSource.getMovies(object : RemoteDataSource.LoadMoviesCallback{
-            override fun onReceived(movieResp: ArrayList<DataEntitasMovie>) {
+        remoteDataSource.getMovies(object : RemoteDataSource.LoadMoviesCallback {
+            override fun onReceived(movieResponse: ArrayList<DataEntitasMovie>) {
                 val movieList = ArrayList<DataEntitasMovie?>()
-                for (response in movieResp){
-                    val movieResponse = DataEntitasMovie(
+                for (response in movieResponse) {
+                    val movieResp = DataEntitasMovie(
                         id = response.id,
                         title = response.title,
                         imgPoster = response.imgPoster,
@@ -37,7 +37,7 @@ class Repository(private val remoteDataSource: RemoteDataSource): DataSource {
                         overview = response.overview,
                         popularity = response.popularity
                     )
-                    movieList.add(movieResponse)
+                    movieList.add(movieResp)
                 }
                 movieResults.postValue(movieList)
             }
@@ -47,11 +47,11 @@ class Repository(private val remoteDataSource: RemoteDataSource): DataSource {
 
     override fun getAllTV(): LiveData<ArrayList<DataEntitasTv?>?> {
         val tvResults = MutableLiveData<ArrayList<DataEntitasTv?>?>()
-        remoteDataSource.getTvShows(object : RemoteDataSource.LoadTvCallback{
-            override fun onReceived(tvResp: ArrayList<DataEntitasTv>) {
+        remoteDataSource.getTvShows(object : RemoteDataSource.LoadTvCallback {
+            override fun onReceived(tvResponse: ArrayList<DataEntitasTv>) {
                 val tvList = ArrayList<DataEntitasTv?>()
-                for (response in tvResp){
-                    val TvResponse = DataEntitasTv(
+                for (response in tvResponse) {
+                    val tvResp = DataEntitasTv(
                         id = response.id,
                         title = response.title,
                         imgPoster = response.imgPoster,
@@ -63,7 +63,7 @@ class Repository(private val remoteDataSource: RemoteDataSource): DataSource {
                         overview = response.overview,
                         popularity = response.popularity
                     )
-                    tvList.add(TvResponse)
+                    tvList.add(tvResp)
                 }
                 tvResults.postValue(tvList)
             }
@@ -74,11 +74,11 @@ class Repository(private val remoteDataSource: RemoteDataSource): DataSource {
     override fun getOneMovie(id: Int?): LiveData<DetailMovie?> {
         val detailMovieResult = MutableLiveData<DetailMovie>()
 
-        remoteDataSource.getDetailMovies(id!!,object : RemoteDataSource.LoadDetailMoviesCallback{
+        remoteDataSource.getDetailMovies(id!!, object : RemoteDataSource.LoadDetailMoviesCallback {
             override fun onReceived(detailMovie: DetailMovie) {
                 val genreResults = ArrayList<Genre>()
 
-                for (item in detailMovie.genre!!){
+                for (item in detailMovie.genre!!) {
                     val genreList = Genre(
                         id = item.id,
                         name = item.name
@@ -112,11 +112,11 @@ class Repository(private val remoteDataSource: RemoteDataSource): DataSource {
     override fun getOneTV(id: Int?): LiveData<DetailTvShow?> {
         val detailTvResult = MutableLiveData<DetailTvShow>()
 
-        remoteDataSource.getDetailTvShow(id!!,object : RemoteDataSource.LoadDetailTvCallback{
-            override fun onReceived(detailTv: DetailTvShow) {
+        remoteDataSource.getDetailTvShow(id!!, object : RemoteDataSource.LoadDetailTvCallback {
+            override fun onReceived(detailTvShow: DetailTvShow) {
                 val genreResults = ArrayList<Genre>()
 
-                for (item in detailTv.genre!!){
+                for (item in detailTvShow.genre!!) {
                     val genreList = Genre(
                         id = item.id,
                         name = item.name
@@ -125,19 +125,19 @@ class Repository(private val remoteDataSource: RemoteDataSource): DataSource {
                 }
 
                 val detTvResponse = DetailTvShow(
-                    id = detailTv.id,
-                    title = detailTv.title,
-                    imgPoster = detailTv.imgPoster,
-                    rating = detailTv.rating,
-                    language = detailTv.language,
-                    released = detailTv.released,
+                    id = detailTvShow.id,
+                    title = detailTvShow.title,
+                    imgPoster = detailTvShow.imgPoster,
+                    rating = detailTvShow.rating,
+                    language = detailTvShow.language,
+                    released = detailTvShow.released,
                     genre = genreResults,
-                    imgBackground = detailTv.imgBackground,
-                    firstAir = detailTv.firstAir,
-                    overview = detailTv.overview,
-                    popularity = detailTv.popularity,
-                    revenue = detailTv.revenue,
-                    runtime = detailTv.runtime
+                    imgBackground = detailTvShow.imgBackground,
+                    firstAir = detailTvShow.firstAir,
+                    overview = detailTvShow.overview,
+                    popularity = detailTvShow.popularity,
+                    revenue = detailTvShow.revenue,
+                    runtime = detailTvShow.runtime
                 )
 
                 detailTvResult.postValue(detTvResponse)

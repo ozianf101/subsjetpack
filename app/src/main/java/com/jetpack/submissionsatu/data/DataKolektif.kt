@@ -6,7 +6,7 @@ import com.jetpack.submissionsatu.model.DetailMovie
 import com.jetpack.submissionsatu.model.DetailTvShow
 
 object DataKolektif {
-    fun getDataMovies() : ArrayList<DataEntitasMovie?>{
+    fun getDataMovies(): ArrayList<DataEntitasMovie?> {
 
         val listMovie = ArrayList<DataEntitasMovie?>()
 
@@ -126,7 +126,7 @@ object DataKolektif {
         return listMovie
     }
 
-    fun getRemoteDataMovies() : ArrayList<DataEntitasMovie> {
+    fun getRemoteDataMovies(): ArrayList<DataEntitasMovie> {
 
         val movies = ArrayList<DataEntitasMovie>()
 
@@ -142,11 +142,11 @@ object DataKolektif {
         return movies
     }
 
-    fun getRemoteDetailDataMovies(id: Int) : DetailMovie {
+    fun getRemoteDetailDataMovies(id: Int): DetailMovie {
         return DetailMovie(id)
     }
 
-    fun getDataTv() : ArrayList<DataEntitasTv?>{
+    fun getDataTv(): ArrayList<DataEntitasTv?> {
         val listTvShows = ArrayList<DataEntitasTv?>()
 
         listTvShows.apply {
@@ -261,10 +261,10 @@ object DataKolektif {
                 )
             )
         }
-        return  listTvShows
+        return listTvShows
     }
 
-    fun getRemoteDataTV() : ArrayList<DataEntitasTv> {
+    fun getRemoteDataTV(): ArrayList<DataEntitasTv> {
 
         val tv = ArrayList<DataEntitasTv>()
 
@@ -280,7 +280,7 @@ object DataKolektif {
         return tv
     }
 
-    fun getRemoteDetailDataTV(id: Int) : DetailTvShow {
+    fun getRemoteDetailDataTV(id: Int): DetailTvShow {
         return DetailTvShow(id)
     }
 }
