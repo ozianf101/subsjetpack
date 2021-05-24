@@ -66,15 +66,6 @@ class FakeRepository(private val remoteDataSource: RemoteDataSource): DataSource
 
         remoteDataSource.getDetailMovies(id!!,object : RemoteDataSource.LoadDetailMoviesCallback{
             override fun onReceived(detailMovie: DetailMovie) {
-                val genreResults = ArrayList<Genre>()
-
-                for (item in detailMovie.genre!!){
-                    val genreList = Genre(
-                        id = item.id,
-                        name = item.name
-                    )
-                    genreResults.add(genreList)
-                }
 
                 val detMovieResponse = DetailMovie(
                     id = detailMovie.id,
@@ -83,7 +74,7 @@ class FakeRepository(private val remoteDataSource: RemoteDataSource): DataSource
                     rating = detailMovie.rating,
                     language = detailMovie.language,
                     released = detailMovie.released,
-                    genre = genreResults,
+                    genre = detailMovie.genre,
                     imgBackground = detailMovie.imgBackground,
                     firstAir = detailMovie.firstAir,
                     overview = detailMovie.overview,
@@ -104,15 +95,6 @@ class FakeRepository(private val remoteDataSource: RemoteDataSource): DataSource
 
         remoteDataSource.getDetailTvShow(id!!,object : RemoteDataSource.LoadDetailTvCallback{
             override fun onReceived(detailTv: DetailTvShow) {
-                val genreResults = ArrayList<Genre>()
-
-                for (item in detailTv.genre!!){
-                    val genreList = Genre(
-                        id = item.id,
-                        name = item.name
-                    )
-                    genreResults.add(genreList)
-                }
 
                 val detTvResponse = DetailTvShow(
                     id = detailTv.id,
@@ -121,7 +103,7 @@ class FakeRepository(private val remoteDataSource: RemoteDataSource): DataSource
                     rating = detailTv.rating,
                     language = detailTv.language,
                     released = detailTv.released,
-                    genre = genreResults,
+                    genre = detailTv.genre,
                     imgBackground = detailTv.imgBackground,
                     firstAir = detailTv.firstAir,
                     overview = detailTv.overview,

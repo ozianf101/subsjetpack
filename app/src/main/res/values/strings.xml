@@ -5,8 +5,8 @@
     <string name="rating_star">rating Star</string>
     <string name="rate">8.9</string>
     <string name="logo_app">Logo App</string>
-    <string name="movies">Movies</string>
-    <string name="tvshow">Tv Shows</string>
+    <string name="movies">MOVIES</string>
+    <string name="tvshow">TV SHOWS</string>
     <string name="descr">Lorem Ipsum dolor sit amet itu contohnya</string>
     <string name="description">Description</string>
     <string name="genre">Genre</string>

@@ -96,17 +96,6 @@ class RemoteDataSource {
             override fun onResponse(call: Call<DetailMovie>, response: Response<DetailMovie>) {
                 val body = response.body()
                 val genre = response.body()?.genre
-                val genreResults = ArrayList<Genre>()
-
-                if (genre != null) {
-                    for (item in genre){
-                        val genreResponse = Genre(
-                            id = item.id,
-                            name = item.name
-                        )
-                        genreResults.add(genreResponse)
-                    }
-                }
 
                 val detMovieResponse = DetailMovie(
                     id = body?.id!!,
@@ -115,7 +104,7 @@ class RemoteDataSource {
                     rating = body.rating,
                     language = body.language,
                     released = body.released,
-                    genre = genreResults,
+                    genre = genre,
                     imgBackground = body.imgBackground,
                     firstAir = body.firstAir,
                     overview = body.overview,
@@ -125,13 +114,16 @@ class RemoteDataSource {
                 )
 
                 callback.onReceived(detMovieResponse)
+                idling.decrement()
 
             }
             override fun onFailure(call: Call<DetailMovie>, t: Throwable) {
                 Log.e(TAG, "Failure to Get Detail ${t.message}")
-            }
+                idling.decrement()
+                }
+
         })
-        idling.decrement()
+
     }
 
     fun getDetailTvShow(id: Int?,callback: LoadDetailTvCallback) {
@@ -140,17 +132,6 @@ class RemoteDataSource {
             override fun onResponse(call: Call<DetailTvShow>, response: Response<DetailTvShow>) {
                 val body = response.body()
                 val genre = response.body()?.genre
-                val genreResults = ArrayList<Genre>()
-
-                if (genre != null) {
-                    for (item in genre){
-                        val genreResponse = Genre(
-                            id = item.id,
-                            name = item.name
-                        )
-                        genreResults.add(genreResponse)
-                    }
-                }
 
                 val detTvResponse = DetailTvShow(
                     id = body?.id!!,
@@ -159,7 +140,7 @@ class RemoteDataSource {
                     rating = body.rating,
                     language = body.language,
                     released = body.released,
-                    genre = genreResults,
+                    genre = genre,
                     imgBackground = body.imgBackground,
                     firstAir = body.firstAir,
                     overview = body.overview,
@@ -169,13 +150,14 @@ class RemoteDataSource {
                 )
 
                 callback.onReceived(detTvResponse)
+                idling.decrement()
 
             }
             override fun onFailure(call: Call<DetailTvShow>, t: Throwable) {
                 Log.e(TAG, "Failure to Get Detail Tv ${t.message}")
+                idling.decrement()
             }
         })
-        idling.decrement()
     }
 
     interface LoadMoviesCallback{

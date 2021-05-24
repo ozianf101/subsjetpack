@@ -10,7 +10,7 @@ data class DetailMovie(
     val title: String? = null,
 
     @SerializedName("genres")
-    val genre: List<Genre>? = null,
+    val genre: List<Genre?>? = null,
 
     @SerializedName("vote_average")
     val rating: Double? = null,

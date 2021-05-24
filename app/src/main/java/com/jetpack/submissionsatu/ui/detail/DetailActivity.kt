@@ -61,7 +61,7 @@ class DetailActivity : AppCompatActivity() {
         binding.txtRating.text = movie.rating.toString().trim()
         var genreTxt = ""
         for (item in movie.genre!!) {
-            genreTxt = item.name + ", " + genreTxt
+            genreTxt = item!!.name + ", " + genreTxt
         }
         binding.tvGenre.text = genreTxt
         setGlideImage(this@DetailActivity, movie.imgPoster, binding.imgItemPhoto)

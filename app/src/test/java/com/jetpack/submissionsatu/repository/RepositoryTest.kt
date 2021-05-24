@@ -11,8 +11,11 @@ import com.nhaarman.mockitokotlin2.verify
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.Mockito
+import org.mockito.junit.MockitoJUnitRunner
 
+@RunWith(MockitoJUnitRunner::class)
 class RepositoryTest{
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
