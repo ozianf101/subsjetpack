@@ -1,29 +1,31 @@
 package com.jetpack.submissionsatu.data
 
-import com.jetpack.submissionsatu.model.DataEntitasMovie
-import com.jetpack.submissionsatu.model.DataEntitasTv
-import com.jetpack.submissionsatu.model.DetailMovie
-import com.jetpack.submissionsatu.model.DetailTvShow
+import com.jetpack.submissionsatu.model.*
 
 object DataKolektif {
-    fun getDataMovies(): ArrayList<DataEntitasMovie?> {
+    fun getDataMovies(): ArrayList<MovieEntity?> {
 
-        val listMovie = ArrayList<DataEntitasMovie?>()
+        val listMovie = ArrayList<MovieEntity?>()
 
         listMovie.apply {
             add(
-                DataEntitasMovie(
+                MovieEntity(
                     id = 567189,
                     title = "Tom Clancy's Without Remorse",
                     rating = 7.3,
                     overview = "An elite Navy SEAL uncovers an international conspiracy while seeking justice for the murder of his pregnant wife.",
                     imgPoster = "/rEm96ib0sPiZBADNKBHKBv5bve9.jpg",
                     imgBackground = "/fPGeS6jgdLovQAKunNHX8l0avCy.jpg",
-                    released = "2021-04-29"
+                    released = "2021-04-29",
+                    firstAir = "2021-01-01",
+                    genre = "",
+                    popularity = "190.000",
+                    language = "en",
+                    isFav = false
                 )
             )
             add(
-                DataEntitasMovie(
+                MovieEntity(
                     id = 460465,
                     title = "Mortal Kombat",
                     rating = 7.6,
@@ -31,21 +33,31 @@ object DataKolektif {
                     imgPoster = "/nkayOAUBUu4mMvyNf9iHSUiPjF1.jpg",
                     imgBackground = "/6ELCZlTA5lGUops70hKdB83WJxH.jpg",
                     released = "2021-04-07",
+                    firstAir = "2021-01-01",
+                    genre = "",
+                    popularity = "190.000",
+                    language = "en",
+                    isFav = false
                 )
             )
             add(
-                DataEntitasMovie(
+                MovieEntity(
                     id = 567189,
                     title = "Tom Clancy's Without Remorse",
                     rating = 7.3,
                     overview = "An elite Navy SEAL uncovers an international conspiracy while seeking justice for the murder of his pregnant wife.",
                     imgPoster = "/rEm96ib0sPiZBADNKBHKBv5bve9.jpg",
                     imgBackground = "/fPGeS6jgdLovQAKunNHX8l0avCy.jpg",
-                    released = "2021-04-29"
+                    released = "2021-04-29",
+                    firstAir = "2021-01-01",
+                    genre = "",
+                    popularity = "190.000",
+                    language = "en",
+                    isFav = false
                 )
             )
             add(
-                DataEntitasMovie(
+                MovieEntity(
                     id = 460465,
                     title = "Mortal Kombat",
                     rating = 7.6,
@@ -53,21 +65,31 @@ object DataKolektif {
                     imgPoster = "/nkayOAUBUu4mMvyNf9iHSUiPjF1.jpg",
                     imgBackground = "/6ELCZlTA5lGUops70hKdB83WJxH.jpg",
                     released = "2021-04-07",
+                    firstAir = "2021-01-01",
+                    genre = "",
+                    popularity = "190.000",
+                    language = "en",
+                    isFav = false
                 )
             )
             add(
-                DataEntitasMovie(
+                MovieEntity(
                     id = 567189,
                     title = "Tom Clancy's Without Remorse",
                     rating = 7.3,
                     overview = "An elite Navy SEAL uncovers an international conspiracy while seeking justice for the murder of his pregnant wife.",
                     imgPoster = "/rEm96ib0sPiZBADNKBHKBv5bve9.jpg",
                     imgBackground = "/fPGeS6jgdLovQAKunNHX8l0avCy.jpg",
-                    released = "2021-04-29"
+                    released = "2021-04-29",
+                    firstAir = "2021-01-01",
+                    genre = "",
+                    popularity = "190.000",
+                    language = "en",
+                    isFav = false
                 )
             )
             add(
-                DataEntitasMovie(
+                MovieEntity(
                     id = 460465,
                     title = "Mortal Kombat",
                     rating = 7.6,
@@ -75,21 +97,31 @@ object DataKolektif {
                     imgPoster = "/nkayOAUBUu4mMvyNf9iHSUiPjF1.jpg",
                     imgBackground = "/6ELCZlTA5lGUops70hKdB83WJxH.jpg",
                     released = "2021-04-07",
+                    firstAir = "2021-01-01",
+                    genre = "",
+                    popularity = "190.000",
+                    language = "en",
+                    isFav = false
                 )
             )
             add(
-                DataEntitasMovie(
+                MovieEntity(
                     id = 567189,
                     title = "Tom Clancy's Without Remorse",
                     rating = 7.3,
                     overview = "An elite Navy SEAL uncovers an international conspiracy while seeking justice for the murder of his pregnant wife.",
                     imgPoster = "/rEm96ib0sPiZBADNKBHKBv5bve9.jpg",
                     imgBackground = "/fPGeS6jgdLovQAKunNHX8l0avCy.jpg",
-                    released = "2021-04-29"
+                    released = "2021-04-29",
+                    firstAir = "2021-01-01",
+                    genre = "",
+                    popularity = "190.000",
+                    language = "en",
+                    isFav = false
                 )
             )
             add(
-                DataEntitasMovie(
+                MovieEntity(
                     id = 460465,
                     title = "Mortal Kombat",
                     rating = 7.6,
@@ -97,21 +129,31 @@ object DataKolektif {
                     imgPoster = "/nkayOAUBUu4mMvyNf9iHSUiPjF1.jpg",
                     imgBackground = "/6ELCZlTA5lGUops70hKdB83WJxH.jpg",
                     released = "2021-04-07",
+                    firstAir = "2021-01-01",
+                    genre = "",
+                    popularity = "190.000",
+                    language = "en",
+                    isFav = false
                 )
             )
             add(
-                DataEntitasMovie(
+                MovieEntity(
                     id = 567189,
                     title = "Tom Clancy's Without Remorse",
                     rating = 7.3,
                     overview = "An elite Navy SEAL uncovers an international conspiracy while seeking justice for the murder of his pregnant wife.",
                     imgPoster = "/rEm96ib0sPiZBADNKBHKBv5bve9.jpg",
                     imgBackground = "/fPGeS6jgdLovQAKunNHX8l0avCy.jpg",
-                    released = "2021-04-29"
+                    released = "2021-04-29",
+                    firstAir = "2021-01-01",
+                    genre = "",
+                    popularity = "190.000",
+                    language = "en",
+                    isFav = false
                 )
             )
             add(
-                DataEntitasMovie(
+                MovieEntity(
                     id = 460465,
                     title = "Mortal Kombat",
                     rating = 7.6,
@@ -119,6 +161,11 @@ object DataKolektif {
                     imgPoster = "/nkayOAUBUu4mMvyNf9iHSUiPjF1.jpg",
                     imgBackground = "/6ELCZlTA5lGUops70hKdB83WJxH.jpg",
                     released = "2021-04-07",
+                    firstAir = "2021-01-01",
+                    genre = "",
+                    popularity = "190.000",
+                    language = "en",
+                    isFav = false
                 )
             )
 
@@ -146,12 +193,12 @@ object DataKolektif {
         return DetailMovie(id)
     }
 
-    fun getDataTv(): ArrayList<DataEntitasTv?> {
-        val listTvShows = ArrayList<DataEntitasTv?>()
+    fun getDataTv(): ArrayList<TvShowEntity?> {
+        val listTvShows = ArrayList<TvShowEntity?>()
 
         listTvShows.apply {
             add(
-                DataEntitasTv(
+                TvShowEntity(
                     id = 60735,
                     title = "The Flash",
                     rating = 7.7,
@@ -159,10 +206,15 @@ object DataKolektif {
                     imgPoster = "/lJA2RCMfsWoskqlQhXPSLFQGXEJ.jpg",
                     imgBackground = "/jeruqNWhqRqOR1QyqdQdHunrvU5.jpg",
                     released = "2014-10-07",
+                    firstAir = "2021-01-01",
+                    genre = "",
+                    popularity = "190.000",
+                    language = "en",
+                    isFav = false
                 )
             )
             add(
-                DataEntitasTv(
+                TvShowEntity(
                     id = 120168,
                     title = "Who Killed Sara?",
                     rating = 7.8,
@@ -170,10 +222,15 @@ object DataKolektif {
                     imgPoster = "/o7uk5ChRt3quPIv8PcvPfzyXdMw.jpg",
                     imgBackground = "/dYvIUzdh6TUv4IFRq8UBkX7bNNu.jpg",
                     released = "2021-03-24",
+                    firstAir = "2021-01-01",
+                    genre = "",
+                    popularity = "190.000",
+                    language = "en",
+                    isFav = false
                 )
             )
             add(
-                DataEntitasTv(
+                TvShowEntity(
                     id = 60735,
                     title = "The Flash",
                     rating = 7.7,
@@ -181,10 +238,15 @@ object DataKolektif {
                     imgPoster = "/lJA2RCMfsWoskqlQhXPSLFQGXEJ.jpg",
                     imgBackground = "/jeruqNWhqRqOR1QyqdQdHunrvU5.jpg",
                     released = "2014-10-07",
+                    firstAir = "2021-01-01",
+                    genre = "",
+                    popularity = "190.000",
+                    language = "en",
+                    isFav = false
                 )
             )
             add(
-                DataEntitasTv(
+                TvShowEntity(
                     id = 120168,
                     title = "Who Killed Sara?",
                     rating = 7.8,
@@ -192,10 +254,15 @@ object DataKolektif {
                     imgPoster = "/o7uk5ChRt3quPIv8PcvPfzyXdMw.jpg",
                     imgBackground = "/dYvIUzdh6TUv4IFRq8UBkX7bNNu.jpg",
                     released = "2021-03-24",
+                    firstAir = "2021-01-01",
+                    genre = "",
+                    popularity = "190.000",
+                    language = "en",
+                    isFav = false
                 )
             )
             add(
-                DataEntitasTv(
+                TvShowEntity(
                     id = 60735,
                     title = "The Flash",
                     rating = 7.7,
@@ -203,10 +270,15 @@ object DataKolektif {
                     imgPoster = "/lJA2RCMfsWoskqlQhXPSLFQGXEJ.jpg",
                     imgBackground = "/jeruqNWhqRqOR1QyqdQdHunrvU5.jpg",
                     released = "2014-10-07",
+                    firstAir = "2021-01-01",
+                    genre = "",
+                    popularity = "190.000",
+                    language = "en",
+                    isFav = false
                 )
             )
             add(
-                DataEntitasTv(
+                TvShowEntity(
                     id = 120168,
                     title = "Who Killed Sara?",
                     rating = 7.8,
@@ -214,10 +286,15 @@ object DataKolektif {
                     imgPoster = "/o7uk5ChRt3quPIv8PcvPfzyXdMw.jpg",
                     imgBackground = "/dYvIUzdh6TUv4IFRq8UBkX7bNNu.jpg",
                     released = "2021-03-24",
+                    firstAir = "2021-01-01",
+                    genre = "",
+                    popularity = "190.000",
+                    language = "en",
+                    isFav = false
                 )
             )
             add(
-                DataEntitasTv(
+                TvShowEntity(
                     id = 60735,
                     title = "The Flash",
                     rating = 7.7,
@@ -225,10 +302,15 @@ object DataKolektif {
                     imgPoster = "/lJA2RCMfsWoskqlQhXPSLFQGXEJ.jpg",
                     imgBackground = "/jeruqNWhqRqOR1QyqdQdHunrvU5.jpg",
                     released = "2014-10-07",
+                    firstAir = "2021-01-01",
+                    genre = "",
+                    popularity = "190.000",
+                    language = "en",
+                    isFav = false
                 )
             )
             add(
-                DataEntitasTv(
+                TvShowEntity(
                     id = 120168,
                     title = "Who Killed Sara?",
                     rating = 7.8,
@@ -236,10 +318,15 @@ object DataKolektif {
                     imgPoster = "/o7uk5ChRt3quPIv8PcvPfzyXdMw.jpg",
                     imgBackground = "/dYvIUzdh6TUv4IFRq8UBkX7bNNu.jpg",
                     released = "2021-03-24",
+                    firstAir = "2021-01-01",
+                    genre = "",
+                    popularity = "190.000",
+                    language = "en",
+                    isFav = false
                 )
             )
             add(
-                DataEntitasTv(
+                TvShowEntity(
                     id = 60735,
                     title = "The Flash",
                     rating = 7.7,
@@ -247,10 +334,15 @@ object DataKolektif {
                     imgPoster = "/lJA2RCMfsWoskqlQhXPSLFQGXEJ.jpg",
                     imgBackground = "/jeruqNWhqRqOR1QyqdQdHunrvU5.jpg",
                     released = "2014-10-07",
+                    firstAir = "2021-01-01",
+                    genre = "",
+                    popularity = "190.000",
+                    language = "en",
+                    isFav = false
                 )
             )
             add(
-                DataEntitasTv(
+                TvShowEntity(
                     id = 120168,
                     title = "Who Killed Sara?",
                     rating = 7.8,
@@ -258,6 +350,11 @@ object DataKolektif {
                     imgPoster = "/o7uk5ChRt3quPIv8PcvPfzyXdMw.jpg",
                     imgBackground = "/dYvIUzdh6TUv4IFRq8UBkX7bNNu.jpg",
                     released = "2021-03-24",
+                    firstAir = "2021-01-01",
+                    genre = "",
+                    popularity = "190.000",
+                    language = "en",
+                    isFav = false
                 )
             )
         }

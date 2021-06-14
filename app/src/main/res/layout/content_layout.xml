@@ -37,6 +37,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/iv_add_fav"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_fav"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
         <TextView
             android:id="@+id/txt_rate"
             android:layout_width="wrap_content"
@@ -45,6 +56,7 @@
             android:layout_marginEnd="15dp"
             android:fontFamily="@font/poppins_semibold"
             android:textColor="@color/white"
+            android:textSize="14sp"
             android:text="@string/rate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/imageView_star"
@@ -53,15 +65,14 @@
         <ImageView
             android:contentDescription="@string/rating_star"
             android:id="@+id/imageView_star"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginStart="24dp"
+            android:layout_marginEnd="5dp"
             android:layout_marginTop="12dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@id/txt_rate"
             app:srcCompat="@drawable/ic_baseline_star_24" />
-
-
 
 
         <TextView
@@ -72,7 +83,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="14sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/img_item_photo"
             app:layout_constraintEnd_toEndOf="@+id/img_item_photo"
             app:layout_constraintStart_toStartOf="@+id/img_item_photo"

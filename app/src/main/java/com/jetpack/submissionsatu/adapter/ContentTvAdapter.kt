@@ -1,38 +1,55 @@
 package com.jetpack.submissionsatu.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jetpack.submissionsatu.data.Helper.IMG_URL
 import com.jetpack.submissionsatu.databinding.ContentLayoutBinding
-import com.jetpack.submissionsatu.model.DataEntitasTv
+import com.jetpack.submissionsatu.fragment.TvShowViewModel
+import com.jetpack.submissionsatu.model.TvShowEntity
 
-class ContentTvAdapter(private val tvCallback: ContentTvCallback) :
-    RecyclerView.Adapter<ContentTvAdapter.ListViewHolder>() {
+class ContentTvAdapter(
+    private val tvCallback: ContentTvCallback,
+    private val viewModel: TvShowViewModel
+) :
+    PagedListAdapter<TvShowEntity, ContentTvAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
-    private val listData = ArrayList<DataEntitasTv?>()
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TvShowEntity>() {
+            override fun areItemsTheSame(oldItem: TvShowEntity, newItem: TvShowEntity): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-    fun setData(data: ArrayList<DataEntitasTv?>) {
-        listData.clear()
-        listData.addAll(data)
+            override fun areContentsTheSame(oldItem: TvShowEntity, newItem: TvShowEntity): Boolean {
+                return oldItem == newItem
+            }
+
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val contentLayoutBinding =
             ContentLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ListViewHolder(contentLayoutBinding)
+        return ListViewHolder(contentLayoutBinding, viewModel)
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        listData[position]?.let { holder.bind(it) }
+        val tv = getItem(position)
+        if (tv != null) {
+            holder.bind(tv)
+        }
     }
 
-    override fun getItemCount(): Int = listData.size
-
-    inner class ListViewHolder(private val binding: ContentLayoutBinding) :
+    inner class ListViewHolder(
+        private val binding: ContentLayoutBinding,
+        private val viewModel: TvShowViewModel
+    ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(dataTv: DataEntitasTv) {
+        fun bind(dataTv: TvShowEntity) {
             with(binding) {
                 tvTitle.text = dataTv.title
                 txtRate.text = dataTv.rating.toString().trim()
@@ -43,6 +60,19 @@ class ContentTvAdapter(private val tvCallback: ContentTvCallback) :
 
                 itemCard.setOnClickListener {
                     tvCallback.onItemClicked(dataTv)
+                }
+                when (dataTv.isFav) {
+                    true -> {
+                        ivAddFav.setColorFilter(Color.parseColor("#03A9F4"))
+                    }
+                    false -> {
+                        ivAddFav.setColorFilter(Color.parseColor("#9A06133E"))
+                    }
+                }
+                ivAddFav.setOnClickListener {
+                    dataTv.let {
+                        viewModel.setFavListTVShow(it)
+                    }
                 }
             }
         }

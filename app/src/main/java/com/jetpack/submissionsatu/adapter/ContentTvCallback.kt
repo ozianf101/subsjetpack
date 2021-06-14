@@ -1,7 +1,7 @@
 package com.jetpack.submissionsatu.adapter
 
-import com.jetpack.submissionsatu.model.DataEntitasTv
+import com.jetpack.submissionsatu.model.TvShowEntity
 
 interface ContentTvCallback {
-    fun onItemClicked(dataTv: DataEntitasTv)
+    fun onItemClicked(dataTv: TvShowEntity)
 }

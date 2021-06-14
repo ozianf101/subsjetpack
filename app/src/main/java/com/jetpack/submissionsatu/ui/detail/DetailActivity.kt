@@ -1,16 +1,17 @@
 package com.jetpack.submissionsatu.ui.detail
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.jetpack.submissionsatu.data.Helper.TYPE_MOVIE
 import com.jetpack.submissionsatu.data.Helper.TYPE_TVSHOW
 import com.jetpack.submissionsatu.data.Helper.setGlideImage
 import com.jetpack.submissionsatu.databinding.ActivityDetailBinding
-import com.jetpack.submissionsatu.model.DetailMovie
-import com.jetpack.submissionsatu.model.DetailTvShow
-import com.jetpack.submissionsatu.source.RemoteDataSource
+import com.jetpack.submissionsatu.model.MovieEntity
+import com.jetpack.submissionsatu.model.TvShowEntity
 import com.jetpack.submissionsatu.source.ViewModelFactory
 
 class DetailActivity : AppCompatActivity() {
@@ -26,7 +27,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val factory = ViewModelFactory.getInstance()
+        val factory = ViewModelFactory.getInstance(this)
         val viewModel = ViewModelProvider(this, factory).get(DetailViewModel::class.java)
 
         val idData = intent.getIntExtra(EXTRA_DATA, 0)
@@ -38,47 +39,84 @@ class DetailActivity : AppCompatActivity() {
             idData.let {
                 viewModel.setSelectedMovie(idData)
                 viewModel.getMovie().observe(this, { detail ->
-                    populateDataMovie(detail)
+                    populateDataMovie(detail.body, viewModel)
+                    Log.e("data", detail.body?.title.toString())
                 })
             }
         } else if (type.equals(TYPE_TVSHOW, ignoreCase = true)) {
             viewModel.setSelectedTV(idData)
             idData.let {
                 viewModel.getTV().observe(this, { detail ->
-                    populateDataTv(detail)
+                    populateDataTv(detail.body, viewModel)
+                    Log.e("data", detail.body?.title.toString())
                 })
             }
-
         }
-
 
     }
 
-    fun populateDataMovie(movie: DetailMovie?) {
-        binding.tvTitle.text = movie!!.title
-        binding.tvDesc.text = movie.overview
-        binding.tvRealaseDate.text = movie.released
-        binding.txtRating.text = movie.rating.toString().trim()
-        var genreTxt = ""
-        for (item in movie.genre!!) {
-            genreTxt = item!!.name + ", " + genreTxt
+    fun populateDataMovie(movie: MovieEntity?, viewModel: DetailViewModel) {
+        binding.tvTitle.text = movie?.title.toString()
+        binding.tvDesc.text = movie?.overview.toString()
+        binding.tvRealaseDate.text = movie?.released.toString()
+        binding.txtRating.text = movie?.rating.toString().trim()
+        binding.tvGenre.text = movie?.genre.toString()
+        when (movie?.isFav) {
+            true -> {
+                binding.buttonFav.setColorFilter(Color.parseColor("#03A9F4"))
+            }
+            false -> {
+                binding.buttonFav.setColorFilter(Color.parseColor("#9A06133E"))
+            }
         }
-        binding.tvGenre.text = genreTxt
-        setGlideImage(this@DetailActivity, movie.imgPoster, binding.imgItemPhoto)
-        setGlideImage(this@DetailActivity, movie.imgBackground, binding.imgItemPreview)
+
+        binding.buttonFav.setOnClickListener {
+            movie.let {
+                viewModel.setFavMovie(it!!)
+                when (it.isFav) {
+                    true -> {
+                        Toast.makeText(this, "Favorit Dibatalkan", Toast.LENGTH_SHORT).show()
+                    }
+                    false -> {
+                        Toast.makeText(this, "Ditambahkan ke Favorit", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+        setGlideImage(this@DetailActivity, movie?.imgPoster.toString(), binding.imgItemPhoto)
+        setGlideImage(this@DetailActivity, movie?.imgBackground.toString(), binding.imgItemPreview)
     }
 
-    fun populateDataTv(tv: DetailTvShow?) {
-        binding.tvTitle.text = tv!!.title
-        binding.tvDesc.text = tv.overview
-        binding.tvRealaseDate.text = tv.firstAir
-        binding.txtRating.text = tv.rating.toString().trim()
-        var genreTxt = ""
-        for (item in tv.genre!!) {
-            genreTxt = item.name + ", " + genreTxt
+    fun populateDataTv(tv: TvShowEntity?, viewModel: DetailViewModel) {
+        binding.tvTitle.text = tv?.title.toString()
+        binding.tvDesc.text = tv?.overview.toString()
+        binding.tvRealaseDate.text = tv?.firstAir.toString()
+        binding.txtRating.text = tv?.rating.toString().trim()
+        binding.tvGenre.text = tv?.genre.toString()
+
+        when (tv?.isFav) {
+            true -> {
+                binding.buttonFav.setColorFilter(Color.parseColor("#03A9F4"))
+            }
+            false -> {
+                binding.buttonFav.setColorFilter(Color.parseColor("#9A06133E"))
+            }
         }
-        binding.tvGenre.text = genreTxt
-        setGlideImage(this@DetailActivity, tv.imgPoster, binding.imgItemPhoto)
-        setGlideImage(this@DetailActivity, tv.imgBackground, binding.imgItemPreview)
+
+        binding.buttonFav.setOnClickListener {
+            tv.let {
+                viewModel.setFavTVShow(it!!)
+                when (it.isFav) {
+                    true -> {
+                        Toast.makeText(this, "Ditambahkan Ke Favorit", Toast.LENGTH_SHORT).show()
+                    }
+                    false -> {
+                        Toast.makeText(this, "Favorit Dibatalkan", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+        setGlideImage(this@DetailActivity, tv?.imgPoster.toString(), binding.imgItemPhoto)
+        setGlideImage(this@DetailActivity, tv?.imgBackground.toString(), binding.imgItemPreview)
     }
 }

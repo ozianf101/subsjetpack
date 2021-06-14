@@ -1,9 +1,11 @@
 package com.jetpack.submissionsatu.source
 
-
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.jetpack.submissionsatu.api.ApiService
 import com.jetpack.submissionsatu.model.*
+import com.jetpack.submissionsatu.util.EssIdlingResources
 import retrofit2.Call
 import retrofit2.Response
 
@@ -21,8 +23,9 @@ class RemoteDataSource {
         }
     }
 
-    fun getMovies(callback: LoadMoviesCallback) {
+    fun getMovies(): LiveData<ApiResponse<List<DataEntitasMovie>>> {
         idling.increment()
+        val result = MutableLiveData<ApiResponse<List<DataEntitasMovie>>>()
         ApiService.getService().getListMovies(1)
             .enqueue(object : retrofit2.Callback<MovieResponse> {
                 override fun onResponse(
@@ -50,7 +53,7 @@ class RemoteDataSource {
                         }
                     }
 
-                    callback.onReceived(movieResults)
+                    result.value = ApiResponse.success(movieResults)
                     idling.decrement()
 
                 }
@@ -60,11 +63,12 @@ class RemoteDataSource {
                     idling.decrement()
                 }
             })
-
+        return result
     }
 
-    fun getTvShows(callback: LoadTvCallback) {
+    fun getTvShows(): LiveData<ApiResponse<List<DataEntitasTv>>> {
         idling.increment()
+        val result = MutableLiveData<ApiResponse<List<DataEntitasTv>>>()
         ApiService.getService().getListTVShows(1).enqueue(object : retrofit2.Callback<TvResponse> {
             override fun onResponse(call: Call<TvResponse>, response: Response<TvResponse>) {
                 val body = response.body()?.result
@@ -85,9 +89,10 @@ class RemoteDataSource {
                         )
                         tvResults.add(tvResponse)
                     }
+
                 }
 
-                callback.onReceived(tvResults)
+                result.value = ApiResponse.success(tvResults)
                 idling.decrement()
 
             }
@@ -97,11 +102,12 @@ class RemoteDataSource {
                 idling.decrement()
             }
         })
-
+        return result
     }
 
-    fun getDetailMovies(id: Int?, callback: LoadDetailMoviesCallback) {
+    fun getDetailMovies(id: Int?): LiveData<ApiResponse<DetailMovie>> {
         idling.increment()
+        val result = MutableLiveData<ApiResponse<DetailMovie>>()
         ApiService.getService().getDetailMovies(id!!)
             .enqueue(object : retrofit2.Callback<DetailMovie> {
                 override fun onResponse(call: Call<DetailMovie>, response: Response<DetailMovie>) {
@@ -124,7 +130,7 @@ class RemoteDataSource {
                         runtime = body.runtime
                     )
 
-                    callback.onReceived(detMovieResponse)
+                    result.value = ApiResponse.success(detMovieResponse)
                     idling.decrement()
 
                 }
@@ -135,11 +141,12 @@ class RemoteDataSource {
                 }
 
             })
-
+        return result
     }
 
-    fun getDetailTvShow(id: Int?, callback: LoadDetailTvCallback) {
+    fun getDetailTvShow(id: Int?): LiveData<ApiResponse<DetailTvShow>> {
         idling.increment()
+        val result = MutableLiveData<ApiResponse<DetailTvShow>>()
         ApiService.getService().getDetailTVShows(id!!)
             .enqueue(object : retrofit2.Callback<DetailTvShow> {
                 override fun onResponse(
@@ -165,7 +172,7 @@ class RemoteDataSource {
                         runtime = body.runtime
                     )
 
-                    callback.onReceived(detTvResponse)
+                    result.value = ApiResponse.success(detTvResponse)
                     idling.decrement()
 
                 }
@@ -175,21 +182,7 @@ class RemoteDataSource {
                     idling.decrement()
                 }
             })
+        return result
     }
 
-    interface LoadMoviesCallback {
-        fun onReceived(movieResponse: ArrayList<DataEntitasMovie>)
-    }
-
-    interface LoadTvCallback {
-        fun onReceived(tvResponse: ArrayList<DataEntitasTv>)
-    }
-
-    interface LoadDetailMoviesCallback {
-        fun onReceived(detailMovie: DetailMovie)
-    }
-
-    interface LoadDetailTvCallback {
-        fun onReceived(detailTvShow: DetailTvShow)
-    }
 }

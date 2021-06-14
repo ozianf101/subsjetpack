@@ -1,8 +1,8 @@
 package com.jetpack.submissionsatu.ui.home
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatDelegate
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
@@ -10,6 +10,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.jetpack.submissionsatu.R
 import com.jetpack.submissionsatu.adapter.ViewPagerAdapter
 import com.jetpack.submissionsatu.databinding.ActivityMainBinding
+import com.jetpack.submissionsatu.ui.favorite.FavoriteActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,9 +44,13 @@ class MainActivity : AppCompatActivity() {
         val vPager = activityMainBinding.viewPager
         vPager.adapter = ViewPagerAdapter(this)
 
-        TabLayoutMediator(tab, vPager) { tab, position ->
-            tab.text = resources.getString(tabTitle[position])
+        TabLayoutMediator(tab, vPager) { tb, position ->
+            tb.text = resources.getString(tabTitle[position])
         }.attach()
+
+        activityMainBinding.fabFav.setOnClickListener {
+            startActivity(Intent(this, FavoriteActivity::class.java))
+        }
     }
 
 }

@@ -1,38 +1,55 @@
 package com.jetpack.submissionsatu.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jetpack.submissionsatu.data.Helper.IMG_URL
 import com.jetpack.submissionsatu.databinding.ContentLayoutBinding
-import com.jetpack.submissionsatu.model.DataEntitasMovie
+import com.jetpack.submissionsatu.fragment.MoviesViewModel
+import com.jetpack.submissionsatu.model.MovieEntity
 
-class ContentMovieAdapter(private val movieCallback: ContentMovieCallback) :
-    RecyclerView.Adapter<ContentMovieAdapter.ListViewHolder>() {
+class ContentMovieAdapter(
+    private val movieCallback: ContentMovieCallback,
+    private val viewModel: MoviesViewModel
+) : PagedListAdapter<MovieEntity, ContentMovieAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
-    private val listData = ArrayList<DataEntitasMovie?>()
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieEntity>() {
+            override fun areItemsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-    fun setData(data: ArrayList<DataEntitasMovie?>) {
-        listData.clear()
-        listData.addAll(data)
+            override fun areContentsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
+                return oldItem == newItem
+            }
+
+        }
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val contentLayoutBinding =
             ContentLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ListViewHolder(contentLayoutBinding)
+        return ListViewHolder(contentLayoutBinding, viewModel)
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        listData[position]?.let { holder.bind(it) }
+        val movie = getItem(position)
+        if (movie != null) holder.bind(movie)
     }
 
-    override fun getItemCount(): Int = listData.size
+//    override fun getItemCount(): Int = listData.size
 
-    inner class ListViewHolder(private val binding: ContentLayoutBinding) :
+    inner class ListViewHolder(
+        private val binding: ContentLayoutBinding,
+        private val viewModel: MoviesViewModel
+    ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(dataMovie: DataEntitasMovie) {
+        fun bind(dataMovie: MovieEntity) {
             with(binding) {
                 tvTitle.text = dataMovie.title
                 txtRate.text = dataMovie.rating.toString().trim()
@@ -43,6 +60,20 @@ class ContentMovieAdapter(private val movieCallback: ContentMovieCallback) :
 
                 itemCard.setOnClickListener {
                     movieCallback.onItemClicked(dataMovie)
+                }
+                when (dataMovie.isFav) {
+                    true -> {
+                        ivAddFav.setColorFilter(Color.parseColor("#03A9F4"))
+                    }
+                    false -> {
+                        ivAddFav.setColorFilter(Color.parseColor("#9A06133E"))
+                    }
+                }
+
+                ivAddFav.setOnClickListener {
+                    dataMovie.let {
+                        viewModel.setFavListMovie(it)
+                    }
                 }
             }
         }

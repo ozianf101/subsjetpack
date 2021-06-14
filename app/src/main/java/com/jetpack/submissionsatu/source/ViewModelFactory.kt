@@ -1,8 +1,10 @@
 package com.jetpack.submissionsatu.source
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.jetpack.submissionsatu.di.Injection
+import com.jetpack.submissionsatu.fragment.FavoriteViewModel
 import com.jetpack.submissionsatu.fragment.MoviesViewModel
 import com.jetpack.submissionsatu.fragment.TvShowViewModel
 import com.jetpack.submissionsatu.repository.Repository
@@ -15,9 +17,9 @@ class ViewModelFactory(private val repository: Repository) :
         @Volatile
         private var instance: ViewModelFactory? = null
 
-        fun getInstance(): ViewModelFactory =
+        fun getInstance(context: Context): ViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: ViewModelFactory(Injection.provideRepository()).apply {
+                instance ?: ViewModelFactory(Injection.provideRepository(context)).apply {
                     instance = this
                 }
             }
@@ -33,6 +35,9 @@ class ViewModelFactory(private val repository: Repository) :
             }
             modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
                 return DetailViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(FavoriteViewModel::class.java) -> {
+                return FavoriteViewModel(repository) as T
             }
             else -> throw Throwable("invalid " + modelClass.name)
         }

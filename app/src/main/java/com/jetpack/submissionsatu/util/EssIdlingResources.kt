@@ -1,4 +1,4 @@
-package com.jetpack.submissionsatu.source
+package com.jetpack.submissionsatu.util
 
 import androidx.test.espresso.idling.CountingIdlingResource
 
